@@ -28,6 +28,7 @@ def get_student(request):
             [f"{student.first_name} {student.last_name}, {student.age}; " for student in students_list]
         )
         return HttpResponse(output)
+
     return HttpResponse('Method not found')
 
 
