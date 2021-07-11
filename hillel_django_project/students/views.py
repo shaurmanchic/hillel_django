@@ -35,6 +35,9 @@ def generate_students(request, student_number=100):
     fake = Faker()
     result = []
 
+
+
+
     for i in range(student_number):
         result.append(Student(
             first_name=fake.first_name(),
