@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block head %}
+    {{ block.super }}
+    <style type="text/css">
+        body { background-color: darkseagreen; }
+    </style>
+{% endblock %}
+{% block content %}
+    <h1>Student List</h1>
+    <ul>
+        {% for student in students %}
+        <li>
+            {{ student.id|safe }}. {{ student.first_name|safe }} {{ student.last_name|safe }}, age {{student.age|safe }}
+            <a href="{% url 'edit-student' student.id %}">Edit</a>
+        </li>
+        {% endfor %}
+    </ul>
+{% endblock %}
