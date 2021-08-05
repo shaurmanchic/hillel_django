@@ -27,7 +27,6 @@ from students.views import (
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-
     path('hello/', hello),
     path('list_students/', list_students),
     path('get_student', get_student),

@@ -15,18 +15,18 @@ def hello(request):
 
 
 def list_students(request):
-    students_list = list(Student.objects.values().all())
-    # output = '\n '.join(
-    #     [f"{student.first_name} {student.last_name}, {student.age}; " for student in students_list]
-    # )
-    return HttpResponse(students_list)
+    students_list = Student.objects.all()
+    output = '<br> '.join(
+        [f"{student.first_name} {student.last_name}, {student.age}; " for student in students_list]
+    )
+    return HttpResponse(output)
 
 
 def get_student(request):
     if request.method == 'GET':
         name_filter = request.GET.get('first_name', '')
         students_list = Student.objects.filter(first_name=name_filter).all()
-        output = '\n '.join(
+        output = '<br> '.join(
             [f"{student.first_name} {student.last_name}, {student.age}; " for student in students_list]
         )
         return HttpResponse(output)
@@ -46,7 +46,7 @@ def generate_students(request, student_number=100):
     Student.objects.bulk_create(result)
 
     students_list = Student.objects.all()
-    output = [f"{student.first_name} {student.last_name}, {student.age}; \n" for student in students_list]
+    output = [f"{student.first_name} {student.last_name}, {student.age}; " for student in students_list]
     return HttpResponse(output, content_type="text/plain")
 
 
