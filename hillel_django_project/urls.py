@@ -16,13 +16,21 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
-from students.views import hello, list_students, get_student, generate_students
+from students.views import (
+    hello,
+    list_students,
+    get_student,
+    generate_students,
+    create_student,
+    create_student_from_model
+)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-
     path('hello/', hello),
     path('list_students/', list_students),
     path('get_student', get_student),
     path('generate_students/<int:student_number>', generate_students),
+    path('create_student', create_student),
+    path('create_student_from_model', create_student_from_model),
 ]
