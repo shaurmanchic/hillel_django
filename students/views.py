@@ -9,11 +9,11 @@ from django.forms.models import model_to_dict
 from faker import Faker
 
 from .models import Student
-from .forms import StudentFormFromModel
+from .forms import StudentForm
 
 
 def hello(request):
-    return HttpResponse("Here's the text of the Web page.")
+    return render(request, 'index.html')
 
 
 def list_students(request):
@@ -49,24 +49,24 @@ def generate_students(request, student_number=100):
 
 def create_student(request):
     if request.method == 'POST':
-        form = StudentFormFromModel(request.POST)
+        form = StudentForm(request.POST)
         if form.is_valid():
             Student.objects.create(**form.cleaned_data)
             return HttpResponseRedirect(reverse('list-students'))
     else:
-        form = StudentFormFromModel()
+        form = StudentForm()
 
     return render(request, 'student_create_form.html', {'form': form})
 
 
 def edit_student(request, student_id):
     if request.method == 'POST':
-        form = StudentFormFromModel(request.POST)
+        form = StudentForm(request.POST)
         if form.is_valid():
             Student.objects.update_or_create(defaults=form.cleaned_data, id=student_id)
             return HttpResponseRedirect(reverse('list-students'))
     else:
         student = Student.objects.filter(id=student_id).first()
-        form = StudentFormFromModel(instance=student)
+        form = StudentForm(model_to_dict(student))
 
     return render(request, 'student_edit_form.html', {'form': form, 'student_id': student_id})

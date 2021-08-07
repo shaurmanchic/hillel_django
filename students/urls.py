@@ -25,10 +25,10 @@ from students.views import (
 )
 
 urlpatterns = [
-    path('hello/', hello),
+    path('', hello),
     path('students/', list_students, name='list-students'),
     path('get_student/<int:student_id>', get_student, name='get-student'),
-    path('create_student', create_student),
-    path('generate_students/<int:student_number>', generate_students),
+    path('create_student', create_student, name='create-student'),
+    path('generate_students/<int:student_number>', generate_students, name='generate-students'),
     path('edit_student/<int:student_id>', edit_student, name='edit-student'),
 ]
