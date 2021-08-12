@@ -5,11 +5,14 @@ from django.http import HttpResponse, HttpResponseNotFound, HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
 from django.forms.models import model_to_dict
+from django.contrib import messages
+from django.shortcuts import redirect
 
 from faker import Faker
 
 from .models import Student
-from .forms import StudentForm
+from .forms import StudentForm, GenerateRandomStudentForm
+from .tasks import create_random_students
 
 
 def hello(request):
@@ -70,3 +73,18 @@ def edit_student(request, student_id):
         form = StudentForm(model_to_dict(student))
 
     return render(request, 'student_edit_form.html', {'form': form, 'student_id': student_id})
+
+
+
+def manually_generate_students(request):
+    if request.method == 'POST':
+        form = GenerateRandomStudentForm(request.POST)
+        if form.is_valid():
+            total = form.cleaned_data.get('total')
+            create_random_students.delay(total)
+            messages.success(request, 'We are generating your random users! Wait a moment and refresh this page.')
+            return redirect('list-students')
+    else:
+        form = GenerateRandomStudentForm()
+
+    return render(request, 'student_generator.html', {'form': form})

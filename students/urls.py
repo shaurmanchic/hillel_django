@@ -22,6 +22,7 @@ from students.views import (
     generate_students,
     create_student,
     edit_student,
+    manually_generate_students,
 )
 
 urlpatterns = [
@@ -31,4 +32,5 @@ urlpatterns = [
     path('create_student', create_student, name='create-student'),
     path('generate_students/<int:student_number>', generate_students, name='generate-students'),
     path('edit_student/<int:student_id>', edit_student, name='edit-student'),
+    path('generate_students_form', manually_generate_students, name='generate-students-form'),
 ]

@@ -7,9 +7,10 @@
 {% endblock %}
 {% block content %}
     <h2><a href="/admin">Admin</a></h2>
-    <h2><a href="{% url 'list-students' %}">List-students</a></h2>
-    <h2><a href="{% url 'get-student' 1 %}">Get-student</a></h2>
-    <h2><a href="{% url 'create-student' %}">Create-student</a></h2>
-    <h2><a href="{% url 'generate-students' 100 %}">Generate-students</a></h2>
-    <h2><a href="{% url 'edit-student' 1 %}">Edit-student</a></h2>
+    <h2><a href="{% url 'list-students' %}">List students</a></h2>
+    <h2><a href="{% url 'get-student' 1 %}">Get student</a></h2>
+    <h2><a href="{% url 'create-student' %}">Create student</a></h2>
+    <h2><a href="{% url 'generate-students' 100 %}">Generate students</a></h2>
+    <h2><a href="{% url 'edit-student' 1 %}">Edit student</a></h2>
+    <h2><a href="{% url 'generate-students-form' %}">Generate students manually form</a></h2>
 {% endblock %}
