@@ -48,6 +48,9 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    # 'students.middleware.simple_middleware',
+    # 'students.middleware.TimingMiddleware',
+    # 'students.middleware.PhoneFormatterMiddleware',
 ]
 
 ROOT_URLCONF = 'hillel_django_project.urls'
