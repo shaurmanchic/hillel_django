@@ -4,6 +4,10 @@ chardet==4.0.0
 click==8.0.1
 Django==3.2.5
 Faker==8.8.2
+flake8==3.9.2
+flake8-builtins==1.5.3     
+flake8-import-order==0.18.1
+flake8-print==4.0.0
 Flask==2.0.1
 Flask-SQLAlchemy==2.5.1
 greenlet==1.1.0
