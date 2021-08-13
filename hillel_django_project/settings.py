@@ -27,6 +27,16 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+CELERY_BROKER_URL = 'pyamqp://guest@localhost//'
+
+from celery.schedules import crontab
+CELERY_BEAT_SCHEDULE = {
+    'beat': {
+        'task': 'students.tasks.beat',
+        'schedule': 10,
+        # 'schedule': crontab(minute='*/1'),
+    }
+}
 
 # Application definition
 

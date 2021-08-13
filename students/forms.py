@@ -1,15 +1,6 @@
 from django import forms
 
-from .models import Student
-
-
-# class StudentFormFromModel(forms.ModelForm):
-#     class Meta:
-#         model = Student
-#         fields = '__all__'
-#         widgets = {
-#             'phone': forms.TextInput()
-#         }
+from django.core.validators import MinValueValidator, MaxValueValidator
 
 
 class StudentForm(forms.Form):
@@ -17,3 +8,12 @@ class StudentForm(forms.Form):
     last_name = forms.CharField(label='Last name', max_length=100)
     age = forms.IntegerField(label='Age')
     phone = forms.CharField(label='Your name', max_length=100)
+
+
+class GenerateRandomStudentForm(forms.Form):
+    total = forms.IntegerField(
+        validators=[
+            MinValueValidator(10),
+            MaxValueValidator(500)
+        ]
+    )
