@@ -29,12 +29,10 @@ ALLOWED_HOSTS = []
 
 CELERY_BROKER_URL = 'pyamqp://guest@localhost//'
 
-from celery.schedules import crontab
 CELERY_BEAT_SCHEDULE = {
-    'beat': {
-        'task': 'students.tasks.beat',
+    'currency': {
+        'task': 'currency.tasks.get_currency_rates',
         'schedule': 10,
-        # 'schedule': crontab(minute='*/1'),
     }
 }
 
@@ -48,6 +46,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'students',
+    'currency',
 ]
 
 MIDDLEWARE = [
