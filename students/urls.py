@@ -17,20 +17,24 @@ from django.urls import path
 
 from students.views import (
     hello,
-    list_students,
-    get_student,
+    # list_students,
+    # get_student,
     generate_students,
-    create_student,
+    # create_student,
     edit_student,
     manually_generate_students,
+    StudentView,
+    StudentFormView
 )
 
 urlpatterns = [
     path('', hello),
-    path('students/', list_students, name='list-students'),
-    path('get_student/<int:student_id>', get_student, name='get-student'),
-    path('create_student', create_student, name='create-student'),
+    path('students/', StudentView.as_view(), name='list-students'),
+    path('students/<int:student_id>', StudentView.as_view(), name='get-student'),
+    # path('students/', list_students, name='list-students'),
+    # path('get_student/<int:student_id>', get_student, name='get-student'),
+    path('create_student', StudentFormView.as_view(), name='create-student'),
     path('generate_students/<int:student_number>', generate_students, name='generate-students'),
     path('edit_student/<int:student_id>', edit_student, name='edit-student'),
-    path('generate_students_form', manually_generate_students, name='generate-students-form'),
+    path('generate_students_form/', manually_generate_students, name='generate-students-form'),
 ]
