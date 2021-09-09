@@ -7,6 +7,7 @@ from django.urls import reverse
 from django.forms.models import model_to_dict
 from django.contrib import messages
 from django.shortcuts import redirect
+from django.views import View
 
 from faker import Faker
 
@@ -19,19 +20,32 @@ def hello(request):
     return render(request, 'index.html')
 
 
-def list_students(request):
-    students_list = Student.objects.all()
-    return render(request, 'students_list.html', {'students': students_list})
+# def list_students(request):
+#     students_list = Student.objects.all()
+#     return render(request, 'students_list.html', {'students': students_list})
+#
+#
+# def get_student(request, student_id):
+#     if request.method == 'GET':
+#         students_list = Student.objects.filter(id=student_id).all()
+#         if students_list:
+#             return render(request, 'students_list.html', {'students': students_list})
+#         else:
+#             return HttpResponseNotFound('No such student')
+#     return HttpResponse('Method not found')
 
 
-def get_student(request, student_id):
-    if request.method == 'GET':
-        students_list = Student.objects.filter(id=student_id).all()
-        if students_list:
-            return render(request, 'students_list.html', {'students': students_list})
+class StudentView(View):
+    form_class = StudentForm
+    template_name = 'students_list.html'
+
+
+    def get(self, request, student_id=None):
+        if student_id:
+            students_list = Student.objects.filter(id=student_id).all()
         else:
-            return HttpResponseNotFound('No such student')
-    return HttpResponse('Method not found')
+            students_list = Student.objects.all()
+        return render(request, self.template_name, {'students': students_list})
 
 
 def generate_students(request, student_number=100):
@@ -50,16 +64,26 @@ def generate_students(request, student_number=100):
     return render(request, 'students_list.html', {'students': students_list})
 
 
-def create_student(request):
-    if request.method == 'POST':
-        form = StudentForm(request.POST)
-        if form.is_valid():
-            Student.objects.create(**form.cleaned_data)
-            return HttpResponseRedirect(reverse('list-students'))
-    else:
-        form = StudentForm()
+from django.views.generic.edit import FormView
 
-    return render(request, 'student_create_form.html', {'form': form})
+class StudentFormView(FormView):
+    template_name = 'student_create_form.html'
+    form_class = StudentForm
+
+    def form_valid(self, form):
+        Student.objects.create(**form.cleaned_data)
+        return HttpResponseRedirect(reverse('list-students'))
+
+# def create_student(request):
+#     if request.method == 'POST':
+#         form = StudentForm(request.POST)
+#         if form.is_valid():
+#             Student.objects.create(**form.cleaned_data)
+#             return HttpResponseRedirect(reverse('list-students'))
+#     else:
+#         form = StudentForm()
+
+#     return render(request, 'student_create_form.html', {'form': form})
 
 
 def edit_student(request, student_id):
