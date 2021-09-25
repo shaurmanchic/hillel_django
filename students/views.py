@@ -15,7 +15,10 @@ from .models import Student
 from .forms import StudentForm, GenerateRandomStudentForm
 from .tasks import create_random_students
 
+from django.contrib.auth.decorators import login_required
 
+
+@login_required(login_url='login/')
 def hello(request):
     return render(request, 'index.html')
 
