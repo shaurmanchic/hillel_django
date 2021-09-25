@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'students',
     'currency',
+    'user_signup'
 ]
 
 MIDDLEWARE = [

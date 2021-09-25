@@ -28,7 +28,7 @@ from students.views import (
 )
 
 urlpatterns = [
-    path('', hello),
+    path('', hello, name='home'),
     path('students/', StudentView.as_view(), name='list-students'),
     path('students/<int:student_id>', StudentView.as_view(), name='get-student'),
     # path('students/', list_students, name='list-students'),
